@@ -48,4 +48,3 @@ function fish_prompt
   spacer
 end
 
-
