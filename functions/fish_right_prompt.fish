@@ -1,3 +1,20 @@
+# Easy printing with foreground and background colors
+function prompt_segment
+  set -l bg $argv[1]
+  set -l fg $argv[2]
+
+  set_color -b $bg
+  set_color $fg
+
+  if [ -n "$argv[3]" ]
+    echo -n -s $argv[3]
+  end
+end
+
+function spacer
+  prompt_segment normal normal " "
+end
+
 function show_pwd
   prompt_segment normal white (prompt_pwd)
 end
