@@ -15,6 +15,14 @@ function spacer
   prompt_segment normal normal " "
 end
 
+# The `$IN_NIX_SHELL` environment variable isn't set in a `nix shell` proper,
+# hence this workaround of checking the `$PATH`.
+#   https://discourse.nixos.org/t/in-nix-shell-env-variable-in-nix-shell-versus-nix-shell/15933
+#   https://github.com/NixOS/nix/issues/3862#issuecomment-707320241
+function is_nix_shell
+  echo $PATH | grep -q /nix/store
+end
+
 function show_vi_mode_prompt
   [ "$theme_display_vi" != 'no' ]; or return
   [ "$fish_key_bindings" = 'fish_vi_key_bindings' \
@@ -25,7 +33,11 @@ function show_vi_mode_prompt
     case default
       prompt_segment normal blue "·"
     case insert
-      prompt_segment normal white "\$"
+      if is_nix_shell
+        prompt_segment normal white "λ"
+      else
+        prompt_segment normal white "\$"
+      end
     case replace_one replace-one
       prompt_segment normal green "r"
     case visual
