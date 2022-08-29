@@ -10,6 +10,6 @@ The right prompt is your PWD in short form (`$HOME/abc/def/ghi` is shortened to 
 
 Install with your favourite Fish package manager, for example:
 
-```
+```console
 $ fisher install samhh/fish-minimal-theme
 ```
