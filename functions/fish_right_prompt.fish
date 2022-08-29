@@ -20,7 +20,7 @@ function show_pwd
 end
 
 function dirty_files_in_dir
-  command git status $argv[1] --porcelain --ignore-submodules=dirty 2>/dev/null | wc -l | sed -e 's/^ *//' -e 's/ *$//'
+  command git status $argv[1] --porcelain --untracked-files=no --ignore-submodules=dirty 2>/dev/null | wc -l | sed -e 's/^ *//' -e 's/ *$//'
 end
 
 function show_git_status
