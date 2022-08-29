@@ -13,8 +13,3 @@ Install with your favourite Fish package manager, for example:
 ```
 $ fisher install samhh/fish-minimal-theme
 ```
-
-## Performance
-
-Performance is usually imperceptibly affected, however in a massive Git repo, particularly on weaker hardware, you might notice some prompt delay. To resolve this you can install [fish-async-prompt](https://github.com/acomagu/fish-async-prompt).
-
