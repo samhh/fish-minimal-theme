@@ -60,9 +60,20 @@ function show_status
   end
 end
 
+# Display the most recently backgrounded job, if any
+function show_bg
+  if jobs -q
+    set -l cmd (jobs -lc | sed -n 1p)
+
+    prompt_segment normal brblack "($cmd)"
+    spacer
+  end
+end
+
 function fish_prompt
   set -g RETVAL $status
   show_status
+  show_bg
   show_prompt
   spacer
 end
