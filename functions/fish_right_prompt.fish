@@ -42,8 +42,44 @@ function show_git_status
   end
 end
 
-function fish_right_prompt
+function show_jj_status
+  if jj root &>/dev/null
+    jj log --ignore-working-copy --no-graph --color always -r @ -T '
+      separate(
+        " ",
+        branches.join(", "),
+        coalesce(
+          surround(
+            "\"",
+            "\"",
+            if(
+              description.first_line().substr(0, 24).starts_with(description.first_line()),
+              description.first_line().substr(0, 24),
+              description.first_line().substr(0, 23) ++ "…"
+            )
+          ),
+          "(empty)"
+        ),
+        change_id.shortest(),
+        commit_id.shortest(),
+        if(conflict, "(conflict)"),
+        if(empty, "(empty)"),
+        if(divergent, "(divergent)"),
+        if(hidden, "(hidden)"),
+      )
+    '
+
+    spacer
+  end
+end
+
+function show_vcs_status
+  show_jj_status
   show_git_status
+end
+
+function fish_right_prompt
+  show_vcs_status
   show_pwd
 end
 
